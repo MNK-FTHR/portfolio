@@ -5,6 +5,7 @@ import {
   IconButton,
   Typography,
   useTheme,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useContext } from "react";
@@ -13,11 +14,14 @@ import { DrawerContext } from "@/app/contexts/NavigationContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { ColorModeContext } from "@/app/contexts/DarkModeContext/DarkModeContext";
+import { LanguageContext } from "@/app/contexts/LanguageContext";
+import VGLink from "../atoms/VGLink";
+
 const TopBar = () => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const { handleDrawerToggle } = useContext(DrawerContext);
-
+  const { language, changeLanguage } = useContext(LanguageContext);
   return (
     <AppBar
       position="fixed"
@@ -33,30 +37,40 @@ const TopBar = () => {
           alignItems: "center",
         }}
       >
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" noWrap component="div">
-          GRANIER Victor
-        </Typography>
-
-        <IconButton
-          sx={{ ml: 1 }}
-          onClick={colorMode.toggleColorMode}
-          color="inherit"
-        >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
-        </IconButton>
+        <Stack direction={"row"}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h5" noWrap>
+            <VGLink href={"/"}>GRANIER Victor</VGLink>
+          </Typography>
+        </Stack>
+        <Stack direction={"row"}>
+          <IconButton
+            sx={{ ml: 1 }}
+            onClick={colorMode.toggleColorMode}
+            color="inherit"
+          >
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </IconButton>
+          <IconButton
+            color="inherit"
+            aria-label="add to shopping cart"
+            onClick={() => changeLanguage()}
+          >
+            {language.toUpperCase()}
+          </IconButton>
+        </Stack>
       </Toolbar>
     </AppBar>
   );

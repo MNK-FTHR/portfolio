@@ -1,0 +1,11 @@
+{
+  "presentation": "Bonjour, je suis Victor !",
+  "thanks": "Merci d'avoir consulter mon site !",
+  "menu": {
+    "Summary": "Sommaire",
+    "Experiences": "Expériences",
+    "Skills": "Talents",
+    "Hobbies": "Hobbies",
+    "Contact me": "Contactez moi"
+  }
+}

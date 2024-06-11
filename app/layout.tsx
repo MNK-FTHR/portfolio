@@ -5,8 +5,8 @@ import TopBar from "@/app/components/TopBar/TopBar";
 import { DrawerContextProvider } from "@/app/contexts/NavigationContext";
 import { drawerWidth } from "@/app/utils/consts";
 import { Drawer } from "@/app/components/Drawer";
-import { ColorModeContextProvider } from "@/app/contexts/DarkModeContext/DarkModeContext";
 import { WithLanguage } from "./contexts/LanguageContext";
+import { ColorModeContextProvider } from "./contexts/DarkModeContext/DarkModeContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

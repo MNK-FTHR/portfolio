@@ -1,7 +1,6 @@
-import { Card, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
 import VGCard from "../components/atoms/VGCard";
-
 const lorem = `Le Lorem Ipsum est simplement du faux texte employé
           dans la composition et la mise en page avant impression. Le Lorem
           Ipsum est le faux texte standard de l'imprimerie depuis les
@@ -13,8 +12,7 @@ const lorem = `Le Lorem Ipsum est simplement du faux texte employé
           vente de feuilles Letraset contenant des passages du Lorem Ipsum, et,
           plus récemment, par son inclusion dans des applications de mise en
           page de texte, comme Aldus PageMaker.`;
-
-const Summary = () => {
+const Hobbies = () => {
   return (
     <Stack
       direction={"column"}
@@ -22,15 +20,37 @@ const Summary = () => {
       alignItems="center"
       spacing={4}
     >
-      <VGCard
-        title="Qui suis-je ?"
-        body={lorem}
-        illustration="https://picsum.photos/536/354"
-        links={[{ link: "https://github.com/MNK-FTHR", name: "Github" }]}
-      />
-      <VGCard title="Ce que je recherche ?" body={lorem} />
+      <Stack direction={"row"} width={"100%"} spacing={4}>
+        <VGCard
+          title="Musique"
+          body={lorem}
+          links={[
+            {
+              link: "hobbies/music",
+              name: "Mes goûts détaillés",
+              internal: true,
+            },
+          ]}
+        />
+
+        <VGCard
+          title="Cinéma"
+          body={lorem}
+          links={[
+            {
+              link: "hobbies/cinema",
+              name: "Mes films préférés",
+              internal: true,
+            },
+          ]}
+        />
+      </Stack>
+      <Stack direction={"row"} width={"100%"} spacing={4}>
+        <VGCard title="Jeux vidéo" body={lorem} />
+        <VGCard title="Sciences" body={lorem} />
+      </Stack>
     </Stack>
   );
 };
 
-export default Summary;
+export default Hobbies;

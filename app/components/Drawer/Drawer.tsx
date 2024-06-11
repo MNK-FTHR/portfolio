@@ -13,7 +13,11 @@ import {
 } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import SummarizeIcon from "@mui/icons-material/Summarize";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
+import AccessibilityIcon from "@mui/icons-material/Accessibility";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import CallIcon from "@mui/icons-material/Call";
 import { drawerWidth } from "@/app/utils/consts";
 import { DrawerContext } from "@/app/contexts/NavigationContext";
 import Link from "next/link";
@@ -23,20 +27,22 @@ const drawer = (
     <Toolbar />
     <Divider />
     <List>
-      {["Summary", "Experience", "Skills", "Personal", "Contact"].map(
-        (text, index) => (
-          <VGLink key={index} href={text.toLocaleLowerCase()}>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          </VGLink>
-        )
-      )}
+      {[
+        { category: "Summary", icon: <SummarizeIcon /> },
+        { category: "Experience", icon: <EqualizerIcon /> },
+        { category: "Skills", icon: <AccessibilityIcon /> },
+        { category: "Hobbies", icon: <InsertEmoticonIcon /> },
+        { category: "Contact", icon: <CallIcon /> },
+      ].map((tab, index) => (
+        <VGLink key={index} href={"/" + tab.category.toLocaleLowerCase()}>
+          <ListItem>
+            <ListItemButton>
+              <ListItemIcon>{tab.icon}</ListItemIcon>
+              <ListItemText primary={tab.category} />
+            </ListItemButton>
+          </ListItem>
+        </VGLink>
+      ))}
     </List>
     <Divider />
   </div>

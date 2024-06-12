@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Stack, Box, Toolbar, Typography, CssBaseline } from "@mui/material";
-import TopBar from "@/app/components/TopBar/TopBar";
+import { Stack, CssBaseline } from "@mui/material";
 import { DrawerContextProvider } from "@/app/contexts/NavigationContext";
-import { drawerWidth } from "@/app/utils/consts";
-import { Drawer } from "@/app/components/Drawer";
-import { WithLanguage } from "./contexts/LanguageContext";
-import { ColorModeContextProvider } from "./contexts/DarkModeContext/DarkModeContext";
+import { WithLanguage } from "@/app/contexts/LanguageContext";
+import { ThemeEditorContextProvider } from "@/app/contexts/ThemeEditorContext/ThemeEditorContext";
+import { ClientLayout } from "@/app/components/ClientLayout";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,17 +12,42 @@ export const metadata: Metadata = {
   description: "Victor GRANIER",
 };
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="description"
+          content="Développeur Web spécialisé en Next.js, React, et TypeScript. Découvrez mon portfolio et mon CV. N'hésitez pas à me contacter!"
+        />
+        <meta
+          name="keywords"
+          content="Développeur Web, Next.js, React, TypeScript, Portfolio, CV, Freelance, Emploi"
+        />
+        <meta name="author" content="GRANIER Victor" />
+
+        <meta
+          property="og:title"
+          content="GRANIER Victor - Développeur Web | Portfolio & CV"
+        />
+        <meta
+          property="og:description"
+          content="Développeur Web spécialisé en Next.js, React, et TypeScript. Découvrez mon portfolio et mon CV. N'hésitez pas à me contacter!"
+        />
+        <meta property="og:image" content="URL_de_votre_image" />
+        <meta property="og:url" content="URL_de_votre_site" />
+        <meta property="og:type" content="website" />
+      </head>
       <body className={inter.className}>
         <main>
           <WithLanguage>
-            <ColorModeContextProvider>
+            <ThemeEditorContextProvider>
               <Stack
                 sx={{
                   minWidth: "100%",
@@ -39,27 +62,15 @@ export default function RootLayout({
               >
                 <CssBaseline />
                 <DrawerContextProvider>
-                  <TopBar />
-                  <Drawer />
-                  <Box
-                    component="main"
-                    overflow="auto"
-                    sx={{
-                      flexGrow: 1,
-                      p: 3,
-                      width: { sm: `calc(100% - ${drawerWidth}px)` },
-                      ml: { sm: `${drawerWidth}px` },
-                    }}
-                  >
-                    <Toolbar />
-                    {children}
-                  </Box>
+                  <ClientLayout>{children}</ClientLayout>
                 </DrawerContextProvider>
               </Stack>
-            </ColorModeContextProvider>
+            </ThemeEditorContextProvider>
           </WithLanguage>
         </main>
       </body>
     </html>
   );
 }
+
+export default RootLayout;

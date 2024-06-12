@@ -1,6 +1,6 @@
 import { Card, Stack, Typography } from "@mui/material";
 import React from "react";
-import VGCard from "../components/atoms/VGCard";
+import { VGCard } from "@/app/components/atoms";
 
 const lorem = `Le Lorem Ipsum est simplement du faux texte employé
           dans la composition et la mise en page avant impression. Le Lorem

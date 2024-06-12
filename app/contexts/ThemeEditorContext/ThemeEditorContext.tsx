@@ -1,12 +1,28 @@
 "use client";
 
-import { PaletteColorOptions, ThemeProvider, createTheme } from "@mui/material";
-import { FC, ReactNode, createContext, useMemo, useState } from "react";
-
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+import { lightenDarkenColor } from "@/app/utils/lightenDarkenColor";
+import { ThemeProvider, createTheme } from "@mui/material";
+import {
+  FC,
+  ReactNode,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+interface I_ThemeEditorContext {
+  colorMode: { toggleColorMode: () => void };
+  sidebarWidth: number;
+  setSidebarWidth: (width: number) => void;
+}
+export const ThemeEditorContext = createContext<I_ThemeEditorContext>({
+  colorMode: { toggleColorMode: () => {} },
+  sidebarWidth: 300,
+  setSidebarWidth: () => {},
+});
 
 type Props = { children: ReactNode };
-export const ColorModeContextProvider: FC<Props> = ({ children }) => {
+export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
   const [mode, setMode] = useState<"light" | "dark">("light");
   const colorMode = useMemo(
     () => ({
@@ -16,8 +32,38 @@ export const ColorModeContextProvider: FC<Props> = ({ children }) => {
     }),
     []
   );
+  const [colors, setColors] = useState({});
+  const colorChanger = useMemo(
+    () => ({
+      toggleColorMode: (newColors: any) => {
+        setColors(newColors);
+      },
+    }),
+    []
+  );
   const { palette } = createTheme();
-
+  const defaultColorsLight = {
+    primary: {
+      main: "#1e3d59",
+      light: lightenDarkenColor("#1e3d59", 40),
+      dark: lightenDarkenColor("#1e3d59", -40),
+      contrastText: "#ffffff",
+    },
+    secondary: {
+      main: "#1ca3ec",
+      light: lightenDarkenColor("#1ca3ec", 40),
+      dark: lightenDarkenColor("#1ca3ec", -40),
+      contrastText: "#ffffff",
+    },
+    accent: {
+      main: "#e67e22",
+      light: lightenDarkenColor("#e67e22", 40),
+      dark: lightenDarkenColor("#e67e22", -40),
+      contrastText: "#ffffff",
+    },
+    background: { default: "#ecf0f1", paper: "#ffffff" },
+    text: { primary: "#2c3e50", secondary: "#7f8c8d", disabled: "#bdc3c7" },
+  };
   const theme = useMemo(
     () =>
       createTheme({
@@ -80,11 +126,22 @@ export const ColorModeContextProvider: FC<Props> = ({ children }) => {
               }),
         },
       }),
-    [mode]
+    [mode, palette]
   );
+  const [sidebarWidth, setSidebarWidth] = useState<number>(300);
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ThemeEditorContext.Provider
+      value={{ colorMode, sidebarWidth, setSidebarWidth }}
+    >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </ColorModeContext.Provider>
+    </ThemeEditorContext.Provider>
   );
+};
+
+export const useThemeEditor = (): I_ThemeEditorContext => {
+  const context = useContext(ThemeEditorContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider");
+  }
+  return context;
 };

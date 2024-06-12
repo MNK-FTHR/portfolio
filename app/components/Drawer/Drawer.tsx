@@ -1,28 +1,31 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Box,
+  Button,
   Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Stack,
   Toolbar,
 } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import SummarizeIcon from "@mui/icons-material/Summarize";
 import EqualizerIcon from "@mui/icons-material/Equalizer";
 import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import CallIcon from "@mui/icons-material/Call";
-import { drawerWidth } from "@/app/utils/consts";
 import { DrawerContext } from "@/app/contexts/NavigationContext";
-import Link from "next/link";
-import VGLink from "../atoms/VGLink";
-const drawer = (
+import { VGLink } from "@/app/components/atoms";
+import { SiteEditor } from "@/app/components/SiteEditor/SiteEditor";
+import { usePathname } from "next/navigation";
+import { useThemeEditor } from "@/app/contexts/ThemeEditorContext";
+
+const drawer = (usefulPathname: string) => (
   <div>
     <Toolbar />
     <Divider />
@@ -34,9 +37,24 @@ const drawer = (
         { category: "Hobbies", icon: <InsertEmoticonIcon /> },
         { category: "Contact", icon: <CallIcon /> },
       ].map((tab, index) => (
-        <VGLink key={index} href={"/" + tab.category.toLocaleLowerCase()}>
+        <VGLink
+          key={index}
+          href={
+            "/" + tab.category !== "Summary"
+              ? tab.category.toLocaleLowerCase()
+              : ""
+          }
+        >
           <ListItem>
-            <ListItemButton>
+            <ListItemButton
+              sx={
+                usefulPathname === tab.category.toLocaleLowerCase()
+                  ? {
+                      bgcolor: "text.disabled",
+                    }
+                  : {}
+              }
+            >
               <ListItemIcon>{tab.icon}</ListItemIcon>
               <ListItemText primary={tab.category} />
             </ListItemButton>
@@ -45,12 +63,27 @@ const drawer = (
       ))}
     </List>
     <Divider />
+    <SiteEditor />
+    <Divider />
+    <Stack direction={"column"} p={1} mt={1} justifyContent={"space-between"}>
+      <Button
+        sx={{ m: 4, bgcolor: "accent.main" }}
+        size="small"
+        variant="contained"
+      >
+        Reset Site To default
+      </Button>
+    </Stack>
   </div>
 );
 interface Props {
   window?: () => Window;
 }
 export const LeftDrawer = (props: Props) => {
+  const { sidebarWidth } = useThemeEditor();
+
+  const pathname = usePathname();
+  const usefulPathname = pathname.split("/")[pathname.split("/").length - 1];
   const { window } = props;
   const { mobileOpen, handleDrawerTransitionEnd, handleDrawerClose } =
     useContext(DrawerContext);
@@ -59,7 +92,7 @@ export const LeftDrawer = (props: Props) => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: sidebarWidth }, flexShrink: { sm: 0 } }}
       aria-label="mailbox folders"
     >
       {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -74,20 +107,26 @@ export const LeftDrawer = (props: Props) => {
         }}
         sx={{
           display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: sidebarWidth,
+          },
         }}
       >
-        {drawer}
+        {drawer(usefulPathname)}
       </Drawer>
       <Drawer
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: sidebarWidth,
+          },
         }}
         open
       >
-        {drawer}
+        {drawer(usefulPathname)}
       </Drawer>
     </Box>
   );

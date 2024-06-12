@@ -1,8 +1,8 @@
 import { Breadcrumbs, Typography } from "@mui/material";
 import React from "react";
-import VGLink from "./VGLink";
+import { VGLink } from "@/app/components/atoms";
 
-const VGArianeString = ({
+export const VGArianeString = ({
   root,
   usefulPathname,
 }: {
@@ -22,5 +22,3 @@ const VGArianeString = ({
     </Breadcrumbs>
   );
 };
-
-export default VGArianeString;

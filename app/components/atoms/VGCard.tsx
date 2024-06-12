@@ -8,19 +8,16 @@ import {
   useTheme,
   Stack,
   CardMedia,
-  Grid,
-  Box,
 } from "@mui/material";
-import { title } from "process";
-import React, { ReactNode } from "react";
-import VGLink from "./VGLink";
+import React from "react";
+import { VGLink } from "@/app/components/atoms";
 interface IProps {
   title: string;
   body: string;
   links?: { link: string; name: string; internal?: boolean }[];
   illustration?: string;
 }
-const VGCard = (props: IProps) => {
+export const VGCard = (props: IProps) => {
   const { title, body, links, illustration } = props;
   const theme = useTheme();
   return (
@@ -82,5 +79,3 @@ const VGCard = (props: IProps) => {
     </Card>
   );
 };
-
-export default VGCard;

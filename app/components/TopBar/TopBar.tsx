@@ -9,25 +9,28 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import React, { useContext } from "react";
-import { drawerWidth } from "@/app/utils/consts";
 import { DrawerContext } from "@/app/contexts/NavigationContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { ColorModeContext } from "@/app/contexts/DarkModeContext/DarkModeContext";
+import {
+  ThemeEditorContext,
+  useThemeEditor,
+} from "@/app/contexts/ThemeEditorContext/ThemeEditorContext";
 import { LanguageContext } from "@/app/contexts/LanguageContext";
-import VGLink from "../atoms/VGLink";
+import { VGLink } from "@/app/components/atoms";
 
-const TopBar = () => {
+export const TopBar = () => {
+  const { sidebarWidth } = useThemeEditor();
   const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
+  const { colorMode } = useContext(ThemeEditorContext);
   const { handleDrawerToggle } = useContext(DrawerContext);
   const { language, changeLanguage } = useContext(LanguageContext);
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
+        width: { sm: `calc(100% - ${sidebarWidth}px)` },
+        ml: { sm: `${sidebarWidth}px` },
       }}
     >
       <Toolbar
@@ -53,9 +56,8 @@ const TopBar = () => {
         </Stack>
         <Stack direction={"row"}>
           <IconButton
-            sx={{ ml: 1 }}
+            sx={{ ml: 1, color: "inherit" }}
             onClick={colorMode.toggleColorMode}
-            color="inherit"
           >
             {theme.palette.mode === "dark" ? (
               <Brightness7Icon />
@@ -75,5 +77,3 @@ const TopBar = () => {
     </AppBar>
   );
 };
-
-export default TopBar;

@@ -13,7 +13,7 @@ export type LinkProps = Omit<MuiLinkProps, "href"> &
  *
  * @see https://next.js.org/docs/api-reference/next/link
  */
-const VGLink = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+export const VGLink = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   { href, replace, scroll, shallow, locale, children },
   ref
 ) {
@@ -31,5 +31,3 @@ const VGLink = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     </NextLink>
   );
 });
-
-export default VGLink;

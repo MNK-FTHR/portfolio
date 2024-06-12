@@ -1,10 +1,8 @@
 "use client";
 
-import { Breadcrumbs, Typography } from "@mui/material";
 import React from "react";
-import VGLink from "../components/atoms/VGLink";
 import { usePathname } from "next/navigation";
-import VGArianeString from "../components/atoms/VGArianeString";
+import { VGArianeString } from "@/app/components/atoms/VGArianeString";
 
 const HobbiesLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();

@@ -4,13 +4,12 @@ import {
   CardContent,
   Typography,
   CardActions,
-  Button,
   useTheme,
   Stack,
   CardMedia,
 } from "@mui/material";
 import React from "react";
-import { VGLink } from "@/app/components/atoms";
+import { VGButton, VGLink } from "@/app/components/atoms";
 interface IProps {
   title: string;
   body: string;
@@ -53,17 +52,17 @@ export const VGCard = (props: IProps) => {
                 sx={{ color: "accent.main" }}
                 href={link.link}
               >
-                <Button
+                <VGButton
                   key={index}
                   size="small"
                   variant="text"
                   sx={{ color: "accent.main" }}
                 >
                   {link.name}
-                </Button>
+                </VGButton>
               </VGLink>
             ) : (
-              <Button
+              <VGButton
                 key={index}
                 size="small"
                 variant="text"
@@ -72,7 +71,7 @@ export const VGCard = (props: IProps) => {
                 href={link.link}
               >
                 {link.name}
-              </Button>
+              </VGButton>
             )
           )}
       </CardActions>

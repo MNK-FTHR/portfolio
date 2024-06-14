@@ -19,8 +19,9 @@ import EqualizerIcon from "@mui/icons-material/Equalizer";
 import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import CallIcon from "@mui/icons-material/Call";
+import WebIcon from "@mui/icons-material/Web";
 import { DrawerContext } from "@/app/contexts/NavigationContext";
-import { VGLink } from "@/app/components/atoms";
+import { VGLink, VGButton } from "@/app/components/atoms";
 import { SiteEditor } from "@/app/components/SiteEditor/SiteEditor";
 import { usePathname } from "next/navigation";
 import { useThemeEditor } from "@/app/contexts/ThemeEditorContext";
@@ -36,12 +37,13 @@ const drawer = (usefulPathname: string) => (
         { category: "Skills", icon: <AccessibilityIcon /> },
         { category: "Hobbies", icon: <InsertEmoticonIcon /> },
         { category: "Contact", icon: <CallIcon /> },
+        { category: "This Website", icon: <WebIcon /> },
       ].map((tab, index) => (
         <VGLink
           key={index}
           href={
             "/" + tab.category !== "Summary"
-              ? tab.category.toLocaleLowerCase()
+              ? tab.category.replace(/\s/g, "").toLocaleLowerCase()
               : ""
           }
         >
@@ -66,13 +68,13 @@ const drawer = (usefulPathname: string) => (
     <SiteEditor />
     <Divider />
     <Stack direction={"column"} p={1} mt={1} justifyContent={"space-between"}>
-      <Button
+      <VGButton
         sx={{ m: 4, bgcolor: "accent.main" }}
         size="small"
         variant="contained"
       >
         Reset Site To default
-      </Button>
+      </VGButton>
     </Stack>
   </div>
 );

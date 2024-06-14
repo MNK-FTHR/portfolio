@@ -1,26 +1,30 @@
-function lightenDarkenColor(col: string, amt: number) {
-  let usePound = false;
+/**
+ * Eclaircit ou assombrit une couleur.
+ * @param {string} color - La couleur en format hexadécimal (e.g. #RRGGBB).
+ * @param {number} percent - Le pourcentage pour éclaircir ou assombrir (-100 à 100).
+ * @return {string} - La nouvelle couleur en format hexadécimal.
+ */
+function lightenDarkenColor(color: string, percent: number) {
+  // Convertir la couleur hexadécimale en RGB
+  let r = parseInt(color.substring(1, 3), 16);
+  let g = parseInt(color.substring(3, 5), 16);
+  let b = parseInt(color.substring(5, 7), 16);
 
-  if (col[0] == "#") {
-    col = col.slice(1);
-    usePound = true;
-  }
+  // Ajuster chaque composant de la couleur
+  r = Math.min(255, Math.max(0, r + (r * percent) / 100));
+  g = Math.min(255, Math.max(0, g + (g * percent) / 100));
+  b = Math.min(255, Math.max(0, b + (b * percent) / 100));
 
-  let num = parseInt(col, 16);
+  // Convertir les valeurs RGB ajustées en couleur hexadécimale
+  const newColor = `#${(
+    (1 << 24) +
+    (Math.round(r) << 16) +
+    (Math.round(g) << 8) +
+    Math.round(b)
+  )
+    .toString(16)
+    .slice(1)}`;
 
-  let r = (num >> 16) + amt;
-  if (r > 255) r = 255;
-  else if (r < 0) r = 0;
-
-  let b = ((num >> 8) & 0x00ff) + amt;
-  if (b > 255) b = 255;
-  else if (b < 0) b = 0;
-
-  let g = (num & 0x0000ff) + amt;
-  if (g > 255) g = 255;
-  else if (g < 0) g = 0;
-
-  return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
+  return newColor;
 }
-
 export { lightenDarkenColor };

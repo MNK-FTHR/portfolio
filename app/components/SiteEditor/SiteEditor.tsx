@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { Box, Button, Slider, Stack } from "@mui/material";
 import { MuiColorInput } from "mui-color-input";
 import { useThemeEditor } from "@/app/contexts/ThemeEditorContext/ThemeEditorContext";
+import { VGButton } from "@/app/components/atoms";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={1} square {...props} />
@@ -138,8 +139,8 @@ export const SiteEditor = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>Menu width</Typography>
-          <Button onClick={increaseWidth}>Increase Width</Button>
-          <Button onClick={decreaseWidth}>Decrease Width</Button>
+          <VGButton onClick={increaseWidth}>Increase Width</VGButton>
+          <VGButton onClick={decreaseWidth}>Decrease Width</VGButton>
         </AccordionDetails>
       </Accordion>
     </>

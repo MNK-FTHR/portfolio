@@ -8,15 +8,6 @@ export type T_VGButtonProps<
 
 export const VGButton = memo(
   forwardRef<ComponentRef<typeof Button>, T_VGButtonProps>((props, ref) => {
-    return (
-      <Button
-        ref={ref}
-        sx={{ bgcolor: "accent.main" }}
-        {...props}
-        disableElevation
-      />
-    );
+    return <Button ref={ref} {...props} disableElevation />;
   })
 ) as typeof Button;
-
-export default VGButton;

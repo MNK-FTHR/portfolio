@@ -1,12 +1,7 @@
 "use client";
 
 import { lightenDarkenColor } from "@/app/utils/lightenDarkenColor";
-import {
-  PaletteColorOptions,
-  ThemeProvider,
-  alpha,
-  createTheme,
-} from "@mui/material";
+import { PaletteColorOptions, ThemeProvider, createTheme } from "@mui/material";
 
 import {
   FC,
@@ -16,16 +11,11 @@ import {
   useMemo,
   useState,
 } from "react";
-interface I_ThemeEditorContext {
-  colorMode: { toggleColorMode: () => void };
-  sidebarWidth: number;
-  setSidebarWidth: (width: number) => void;
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    accent: true;
+  }
 }
-export const ThemeEditorContext = createContext<I_ThemeEditorContext>({
-  colorMode: { toggleColorMode: () => {} },
-  sidebarWidth: 300,
-  setSidebarWidth: () => {},
-});
 declare module "@mui/material/styles" {
   interface Palette {
     accent: PaletteColorOptions;
@@ -40,6 +30,21 @@ declare module "@mui/material/Button" {
     accent: true;
   }
 }
+interface I_ThemeEditorContext {
+  colorMode: { toggleColorMode: () => void };
+  sidebarWidth: number;
+  setSidebarWidth: (width: number) => void;
+  colorChanger: (
+    colorType: "primary" | "secondary" | "accent",
+    color: string
+  ) => void;
+}
+export const ThemeEditorContext = createContext<I_ThemeEditorContext>({
+  colorMode: { toggleColorMode: () => {} },
+  sidebarWidth: 300,
+  setSidebarWidth: () => {},
+  colorChanger: () => {},
+});
 
 type Props = { children: ReactNode };
 export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
@@ -52,17 +57,24 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
     }),
     []
   );
-  const [colors, setColors] = useState({});
-  const colorChanger = useMemo(
-    () => ({
-      toggleColorMode: (newColors: any) => {
-        setColors(newColors);
-      },
-    }),
-    []
-  );
+
+  const [colors, setColors] = useState<{
+    primary: string;
+    secondary: string;
+    accent: string;
+  }>({
+    primary: "#1e3d59",
+    secondary: "#1ca3ec",
+    accent: "#e67e22",
+  });
+  const colorChanger = (
+    colorType: "primary" | "secondary" | "accent",
+    color: string
+  ) => {
+    setColors((prevColors) => ({ ...prevColors, [colorType]: color }));
+  };
   const { palette } = createTheme();
-  const theme = useMemo(() => {
+  let theme = useMemo(() => {
     const defaultColorsLight = {
       background: {
         default: "#ecf0f1",
@@ -91,34 +103,42 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
       palette: {
         mode,
         primary: {
-          main: "#1e3d59",
-          light: lightenDarkenColor("#1e3d59", 60),
-          dark: lightenDarkenColor("#1e3d59", -60),
+          main: colors.primary,
+          light: lightenDarkenColor(colors.primary, 30),
+          dark: lightenDarkenColor(colors.primary, -30),
+          // Default:
           // light: "#486a8b",
           // dark: "#152a3c",
           contrastText: "#ffffff",
         },
         secondary: {
-          main: "#1ca3ec",
-          light: "#61d5ff",
-          dark: "#0071b1",
+          main: colors.secondary,
+          light: lightenDarkenColor(colors.secondary, 30),
+          dark: lightenDarkenColor(colors.secondary, -30),
+          // Default:
+          // light: "#61d5ff",
+          // dark: "#0071b1",
           contrastText: "#ffffff",
         },
         accent: palette.augmentColor({
           color: {
-            main: "#e67e22",
-            light: "#ffa04d",
-            dark: "#b55a15",
+            main: colors.accent,
+            light: lightenDarkenColor(colors.accent, 30),
+            dark: lightenDarkenColor(colors.accent, -30),
+            // Default:
+            // light: "#ffa04d",
+            // dark: "#b55a15",
           },
         }),
         ...(mode === "light" ? defaultColorsLight : defaultColorsDark),
       },
     });
-  }, [mode, palette]);
+  }, [colors, mode, palette]);
+
   const [sidebarWidth, setSidebarWidth] = useState<number>(300);
   return (
     <ThemeEditorContext.Provider
-      value={{ colorMode, sidebarWidth, setSidebarWidth }}
+      value={{ colorMode, sidebarWidth, setSidebarWidth, colorChanger }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeEditorContext.Provider>
@@ -128,7 +148,7 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
 export const useThemeEditor = (): I_ThemeEditorContext => {
   const context = useContext(ThemeEditorContext);
   if (!context) {
-    throw new Error("useSidebar must be used within a SidebarProvider");
+    throw new Error("You don't know how bad things really are...");
   }
   return context;
 };

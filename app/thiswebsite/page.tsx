@@ -1,26 +1,62 @@
 "use client";
-import { Stack, Typography, useTheme } from "@mui/material";
+import {
+  Divider,
+  PaletteColor,
+  Paper,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React from "react";
-import VGColorPalette from "../components/atoms/VGColorPalette";
+import { ColorPaletteEditor } from "@/app/thiswebsite/ColorPaletteEditor";
+import { DrawerEditor } from "@/app/thiswebsite/DrawerEditor";
 
 const ThisWebSite = () => {
   const theme = useTheme();
   return (
-    <Stack
-      direction={"column"}
-      justifyContent="space-between"
-      alignItems="center"
-      spacing={4}
-    >
-      <Stack
-        width={"100%"}
-        direction={"column"}
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      >
-        <Typography variant="h4">Palette</Typography>
-        <VGColorPalette palette={theme.palette} />
-      </Stack>
+    <Stack spacing={2}>
+      <Paper elevation={3} sx={{ p: 1 }} square={false}>
+        <Stack>
+          <Typography variant="h4">Color Palette</Typography>
+          <Typography variant="body1">
+            Voici les couleurs de ce site, vous pouvez modifier la Main, la Dark
+            et la Light sont calculées en fonction de la Main.
+          </Typography>
+          <Stack
+            direction={{ xs: "column", md: "row" }}
+            spacing={{ xs: 1, md: 2 }}
+            justifyContent="space-around"
+            alignItems="center"
+          >
+            <ColorPaletteEditor
+              name={"Primary"}
+              color={theme.palette.primary}
+            />
+            <ColorPaletteEditor
+              name={"Secondary"}
+              color={theme.palette.secondary}
+            />
+            <ColorPaletteEditor
+              name={"Accent"}
+              color={theme.palette.accent as PaletteColor}
+            />
+          </Stack>
+        </Stack>
+      </Paper>
+      <Paper elevation={3} sx={{ p: 1 }} square={false}>
+        <Typography variant="h4">Drawer Props</Typography>
+        <Typography variant="body1">
+          Cette section permet de modifier les propriétés du drawer menu
+        </Typography>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={{ xs: 1, md: 2 }}
+          justifyContent="space-around"
+          alignItems="center"
+        >
+          <DrawerEditor />
+        </Stack>
+      </Paper>
     </Stack>
   );
 };

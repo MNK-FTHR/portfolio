@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { ColorPaletteEditor } from "@/app/thiswebsite/ColorPaletteEditor";
 import { DrawerEditor } from "@/app/thiswebsite/DrawerEditor";
+import { FontEditor } from "./FontEditor";
 
 const ThisWebSite = () => {
   const theme = useTheme();
@@ -48,14 +49,14 @@ const ThisWebSite = () => {
         <Typography variant="body1">
           Cette section permet de modifier les propriétés du drawer menu
         </Typography>
-        <Stack
-          direction={{ xs: "column", md: "row" }}
-          spacing={{ xs: 1, md: 2 }}
-          justifyContent="space-around"
-          alignItems="center"
-        >
-          <DrawerEditor />
-        </Stack>
+        <DrawerEditor />
+      </Paper>
+      <Paper elevation={3} sx={{ p: 1 }} square={false}>
+        <Typography variant="h4">Font</Typography>
+        <Typography variant="body1">
+          Cette section permet de modifier la police d&apos;écriture
+        </Typography>
+        <FontEditor />
       </Paper>
     </Stack>
   );

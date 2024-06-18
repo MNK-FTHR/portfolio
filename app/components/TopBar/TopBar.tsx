@@ -20,7 +20,7 @@ import { LanguageContext } from "@/app/contexts/LanguageContext";
 import { VGLink } from "@/app/components/atoms";
 
 export const TopBar = () => {
-  const { sidebarWidth } = useThemeEditor();
+  const { sidebarWidth, sidebarPosition } = useThemeEditor();
   const theme = useTheme();
   const { colorMode } = useContext(ThemeEditorContext);
   const { handleDrawerToggle } = useContext(DrawerContext);
@@ -30,7 +30,9 @@ export const TopBar = () => {
       position="fixed"
       sx={{
         width: { sm: `calc(100% - ${sidebarWidth}px)` },
-        ml: { sm: `${sidebarWidth}px` },
+        ...(sidebarPosition === "left"
+          ? { ml: { sm: `${sidebarWidth}px` } }
+          : { mr: { sm: `${sidebarWidth}px` } }),
       }}
     >
       <Toolbar

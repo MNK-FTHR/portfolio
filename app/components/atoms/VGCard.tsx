@@ -8,11 +8,11 @@ import {
   Stack,
   CardMedia,
 } from "@mui/material";
-import React from "react";
+import React, { ReactNode } from "react";
 import { VGButton, VGLink } from "@/app/components/atoms";
 interface IProps {
-  title: string;
-  body: string;
+  title: string | ReactNode;
+  body: string | ReactNode;
   links?: { link: string; name: string; internal?: boolean }[];
   illustration?: string;
 }
@@ -23,6 +23,7 @@ export const VGCard = (props: IProps) => {
     <Card
       sx={{
         minWidth: 150,
+        minHeight: 100,
         boxShadow:
           "0 13px 27px -5px #32325d40, 0 8px 16px -8px #0000004d, 0 -6px 16px -6px #00000008",
       }}

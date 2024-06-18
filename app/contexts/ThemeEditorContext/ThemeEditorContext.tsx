@@ -11,29 +11,12 @@ import {
   useMemo,
   useState,
 } from "react";
-declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
-    accent: true;
-  }
-}
-declare module "@mui/material/styles" {
-  interface Palette {
-    accent: PaletteColorOptions;
-  }
-  interface PaletteOptions {
-    accent: PaletteColorOptions;
-  }
-}
-
-declare module "@mui/material/Button" {
-  interface ButtonPropsColorOverrides {
-    accent: true;
-  }
-}
 interface I_ThemeEditorContext {
   colorMode: { toggleColorMode: () => void };
   sidebarWidth: number;
   setSidebarWidth: (width: number) => void;
+  sidebarPosition: "left" | "right";
+  setSidebarPosition: (position: "left" | "right") => void;
   colorChanger: (
     colorType: "primary" | "secondary" | "accent",
     color: string
@@ -41,8 +24,10 @@ interface I_ThemeEditorContext {
 }
 export const ThemeEditorContext = createContext<I_ThemeEditorContext>({
   colorMode: { toggleColorMode: () => {} },
-  sidebarWidth: 300,
+  sidebarWidth: 250,
   setSidebarWidth: () => {},
+  sidebarPosition: "left",
+  setSidebarPosition: () => {},
   colorChanger: () => {},
 });
 
@@ -136,9 +121,19 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
   }, [colors, mode, palette]);
 
   const [sidebarWidth, setSidebarWidth] = useState<number>(300);
+  const [sidebarPosition, setSidebarPosition] = useState<"left" | "right">(
+    "left"
+  );
   return (
     <ThemeEditorContext.Provider
-      value={{ colorMode, sidebarWidth, setSidebarWidth, colorChanger }}
+      value={{
+        colorMode,
+        sidebarWidth,
+        setSidebarWidth,
+        colorChanger,
+        sidebarPosition,
+        setSidebarPosition,
+      }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeEditorContext.Provider>

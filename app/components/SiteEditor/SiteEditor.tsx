@@ -64,7 +64,9 @@ export const SiteEditor = () => {
   };
 
   const decreaseWidth = () => {
-    setSidebarWidth(sidebarWidth - 50);
+    if (sidebarWidth > 100) {
+      setSidebarWidth(sidebarWidth - 50);
+    }
   };
   return (
     <>
@@ -94,53 +96,6 @@ export const SiteEditor = () => {
             />
             <Typography>40px</Typography>
           </Stack>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "colorpanel"}
-        onChange={handleChange("colorpanel")}
-      >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Color</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>Primary</Typography>
-          <MuiColorInput
-            format="hex"
-            value={value}
-            onChange={handleColorChange}
-          />
-          <Typography>Secondary</Typography>
-          <MuiColorInput
-            format="hex"
-            value={value}
-            onChange={handleColorChange}
-          />
-          <Typography>Accent</Typography>
-          <MuiColorInput
-            format="hex"
-            value={value}
-            onChange={handleColorChange}
-          />
-          <Typography>Background</Typography>
-          <MuiColorInput
-            format="hex"
-            value={value}
-            onChange={handleColorChange}
-          />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "variablepanel"}
-        onChange={handleChange("variablepanel")}
-      >
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Variables</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>Menu width</Typography>
-          <VGButton onClick={increaseWidth}>Increase Width</VGButton>
-          <VGButton onClick={decreaseWidth}>Decrease Width</VGButton>
         </AccordionDetails>
       </Accordion>
     </>

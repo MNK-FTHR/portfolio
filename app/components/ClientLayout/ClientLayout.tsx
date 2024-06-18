@@ -11,13 +11,12 @@ export const ClientLayout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const { sidebarWidth } = useThemeEditor();
+  const { sidebarWidth, sidebarPosition } = useThemeEditor();
 
   return (
     <>
       <TopBar />
       <Drawer />
-      HOOO
       <Box
         component="main"
         overflow="auto"
@@ -25,7 +24,13 @@ export const ClientLayout = ({
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${sidebarWidth}px)` },
-          ml: { sm: `${sidebarWidth}px` },
+          ...(sidebarPosition === "left"
+            ? {
+                ml: { sm: `${sidebarWidth}px` },
+              }
+            : {
+                mr: { sm: `${sidebarWidth}px` },
+              }),
         }}
       >
         <Toolbar />

@@ -26,7 +26,7 @@ export const ColorPaletteEditor = ({
   const [colorInInput, setNewColor] = useState<string>(color.main);
   return (
     <Stack direction={"row"} p={2} m={2}>
-      <Paper elevation={3} sx={{ p: 1 }} variant="outlined">
+      <Paper elevation={3} sx={{ p: 1 }}>
         <Stack direction={"column"}>
           <Stack direction={"row"}>
             <Typography variant="h5" textAlign={"center"} width={"100%"}>

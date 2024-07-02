@@ -21,6 +21,8 @@ interface I_ThemeEditorContext {
     colorType: "primary" | "secondary" | "accent",
     color: string
   ) => void;
+  updateFontSize: (newFontSize: number) => void;
+  typographyChanger: (typographyType: any, typography: string) => void;
 }
 export const ThemeEditorContext = createContext<I_ThemeEditorContext>({
   colorMode: { toggleColorMode: () => {} },
@@ -29,11 +31,46 @@ export const ThemeEditorContext = createContext<I_ThemeEditorContext>({
   sidebarPosition: "left",
   setSidebarPosition: () => {},
   colorChanger: () => {},
+  updateFontSize: () => {},
+  typographyChanger: () => {},
 });
 
 type Props = { children: ReactNode };
 export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
   const [mode, setMode] = useState<"light" | "dark">("light");
+  const [typography, setTypography] = useState({
+    fontSize: 14,
+    h1: {
+      fontSize: "6rem",
+    },
+    h2: {
+      fontSize: "3.75rem",
+    },
+    h3: {
+      fontSize: "3rem",
+    },
+    h4: {
+      fontSize: "2.125rem",
+    },
+    h5: {
+      fontSize: "1.5rem",
+    },
+    h6: {
+      fontSize: "1.25rem",
+    },
+    subtitle1: {
+      fontSize: "1rem",
+    },
+    subtitle2: {
+      fontSize: "0.875rem",
+    },
+    body1: {
+      fontSize: "1rem",
+    },
+    body2: {
+      fontSize: "0.875rem",
+    },
+  });
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -42,7 +79,6 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
     }),
     []
   );
-
   const [colors, setColors] = useState<{
     primary: string;
     secondary: string;
@@ -57,6 +93,21 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
     color: string
   ) => {
     setColors((prevColors) => ({ ...prevColors, [colorType]: color }));
+  };
+  const updateFontSize = (newFontSize: number) => {
+    setTypography((prevState) => ({
+      ...prevState,
+      fontSize: newFontSize,
+    }));
+  };
+  const typographyChanger = (element: string, newFontSize: string) => {
+    setTypography((prevState) => ({
+      ...prevState,
+      [element]: {
+        ...(prevState[element as keyof typeof prevState] as object),
+        fontSize: newFontSize,
+      },
+    }));
   };
   const { palette } = createTheme();
   let theme = useMemo(() => {
@@ -85,6 +136,7 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
       },
     };
     return createTheme({
+      typography: typography,
       palette: {
         mode,
         primary: {
@@ -118,7 +170,7 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
         ...(mode === "light" ? defaultColorsLight : defaultColorsDark),
       },
     });
-  }, [colors, mode, palette]);
+  }, [colors, mode, palette, typography]);
 
   const [sidebarWidth, setSidebarWidth] = useState<number>(300);
   const [sidebarPosition, setSidebarPosition] = useState<"left" | "right">(
@@ -133,6 +185,8 @@ export const ThemeEditorContextProvider: FC<Props> = ({ children }) => {
         colorChanger,
         sidebarPosition,
         setSidebarPosition,
+        updateFontSize,
+        typographyChanger,
       }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>

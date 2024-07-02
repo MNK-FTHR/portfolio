@@ -1,7 +1,13 @@
-import { Paper, Slider, Stack, Typography } from "@mui/material";
-import React from "react";
+import { useThemeEditor } from "@/app/contexts/ThemeEditorContext";
+import { Paper, Slider, Stack, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
 
 const FontEditor = () => {
+  const theme = useTheme();
+  const { updateFontSize, typographyChanger } = useThemeEditor();
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    updateFontSize(newValue as number);
+  };
   return (
     <Stack
       direction={{ xs: "column", md: "row" }}
@@ -13,13 +19,17 @@ const FontEditor = () => {
         <Paper elevation={3} sx={{ p: 1, flexGrow: 1, height: "100px" }}>
           <Stack direction={"row"}>
             <Stack spacing={1} width={300}>
-              <Typography textAlign={"center"}>FontSize</Typography>
-              <Stack direction={"row"} spacing={1}>
+              <Typography textAlign={"center"}>Global FontSize</Typography>
+              <Stack direction={"column"} spacing={1}>
+                <Typography textAlign={"center"}>
+                  {theme.typography.fontSize}px
+                </Typography>
                 <Slider
-                  defaultValue={30}
+                  onChange={handleChange}
+                  defaultValue={theme.typography.fontSize}
                   valueLabelDisplay="off"
                   sx={{ color: "accent.main" }}
-                  shiftStep={30}
+                  shiftStep={10}
                   step={1}
                   marks
                   min={8}

@@ -15,10 +15,10 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
     palette: {
       mode: 'light',
       primary: {
-        main: '#1976d2', // Couleur primaire par défaut
+        main: '#1976d2',
       },
       secondary: {
-        main: '#d32f2f', // Couleur secondaire par défaut
+        main: '#d32f2f',
       },
     },
   }),

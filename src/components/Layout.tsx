@@ -1,12 +1,10 @@
 import React from 'react';
-import ThemeToggle from './ThemeToggle';
-import ChangeColorButtons from './ChangeColorButtons';
+import ThemeEditor from './ThemeEditor/ThemeEditor';
 
 function Layout({ children }: { children: JSX.Element }) {
   return (
     <div>
-      <ThemeToggle />
-      <ChangeColorButtons />
+      <ThemeEditor />
       {children}
     </div>
   );

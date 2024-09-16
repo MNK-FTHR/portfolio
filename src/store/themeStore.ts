@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { createTheme, Theme } from '@mui/material/styles';
+import { createTheme, darken, lighten, Theme } from '@mui/material/styles';
 
 interface ThemeState {
   isDarkMode: boolean;
@@ -8,18 +8,28 @@ interface ThemeState {
   setPrimaryColor: (color: string) => void;
   setSecondaryColor: (color: string) => void;
 }
+declare module '@mui/material/styles' {
+  interface Palette {
+    blockColor: Palette['primary'];
+  }
+  interface PaletteOptions {
+    blockColor?: PaletteOptions['primary'];
+  }
+}
+const generatePaletteColors = (mainColor: string) => {
+  return {
+    main: mainColor,
+    light: lighten(mainColor, 0.2), // Éclaircir de 20%
+    dark: darken(mainColor, 0.2), // Assombrir de 20%
+  };
+};
 
 export const useThemeStore = create<ThemeState>((set, get) => ({
-  isDarkMode: false,
+  isDarkMode: true,
   theme: createTheme({
     palette: {
-      mode: 'light',
-      primary: {
-        main: '#1976d2',
-      },
-      secondary: {
-        main: '#d32f2f',
-      },
+      mode: 'dark',
+      blockColor: generatePaletteColors('#121212'),
     },
   }),
   toggleDarkMode: () =>
@@ -30,12 +40,7 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
         theme: createTheme({
           palette: {
             mode: isDarkMode ? 'dark' : 'light',
-            primary: {
-              main: get().theme.palette.primary.main,
-            },
-            secondary: {
-              main: get().theme.palette.secondary.main,
-            },
+            blockColor: generatePaletteColors('#121212'),
           },
         }),
       };

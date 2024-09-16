@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import React from 'react';
 import { keyframes } from '@emotion/react';
+import { useThemeStore } from '../../store/themeStore';
 
 // Animation gradient néon
 const neonAnimation = keyframes`
@@ -49,11 +50,15 @@ function AccordionLayout({
   contentSummary: React.ReactNode;
   content: React.ReactNode;
 }) {
+  const theme = useThemeStore((state) => state.theme);
+  console.log(theme.palette);
+
   return (
     <Stack p={2}>
       <Accordion
         sx={{
           border: '1px solid',
+          // backgroundColor: 'blockColor.main',
           borderImageSlice: 1,
           borderColor: '#ff00ff',
           animation: `${neonAnimation} 32s infinite`,

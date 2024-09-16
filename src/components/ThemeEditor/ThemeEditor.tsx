@@ -83,17 +83,6 @@ const ThemeEditor = () => {
             </IconButton>
           </Tooltip>
         </Stack>
-        <Stack>
-          <Tooltip title={'Edit secondary color'} placement="left">
-            <IconButton
-              color="primary"
-              aria-label="add to shopping cart"
-              onClick={() => {}}
-            >
-              <ColorLensOutlinedIcon />
-            </IconButton>
-          </Tooltip>
-        </Stack>
       </Stack>
       {/* <div>
         <TextField

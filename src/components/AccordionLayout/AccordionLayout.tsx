@@ -54,15 +54,26 @@ function AccordionLayout({
   console.log(theme.palette);
 
   return (
-    <Stack p={2}>
+    <Stack p={2} m={2}>
       <Accordion
         sx={{
-          border: '1px solid',
-          // backgroundColor: 'blockColor.main',
-          borderImageSlice: 1,
-          borderColor: '#ff00ff',
-          animation: `${neonAnimation} 32s infinite`,
-          boxShadow: '0px 0px 20px 100px rgba(255, 0, 255, 0.5)',
+          border: '1px solid white',
+          boxShadow:
+            '0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)',
+          ':hover': {
+            border: '1px solid',
+            borderImageSlice: 1,
+            borderColor: '#ff00ff',
+            animation: `${neonAnimation} 32s infinite`,
+            boxShadow: '0px 0px 20px 100px rgba(255, 0, 255, 0.5)',
+          },
+          ...(expanded === sectionName && {
+            borderBottom: '1px solid',
+            borderImageSlice: 1,
+            borderColor: '#ff00ff',
+            animation: `${neonAnimation} 32s infinite`,
+            boxShadow: '0px 0px 20px 5px rgba(255, 0, 255, 0.5)',
+          }),
         }}
         expanded={expanded === sectionName}
         onChange={handleChange(sectionName)}
@@ -72,11 +83,13 @@ function AccordionLayout({
           aria-controls={sectionName + 'bh-content'}
           id={sectionName + 'bh-header'}
           sx={{
-            borderBottom: '1px solid',
-            borderImageSlice: 1,
-            borderColor: '#ff00ff',
-            animation: `${neonAnimation} 32s infinite`,
-            boxShadow: '0px 0px 20px 5px rgba(255, 0, 255, 0.5)',
+            ...(expanded === sectionName && {
+              borderBottom: '1px solid',
+              borderImageSlice: 1,
+              borderColor: '#ff00ff',
+              animation: `${neonAnimation} 32s infinite`,
+              boxShadow: '0px 0px 20px 5px rgba(255, 0, 255, 0.5)',
+            }),
           }}
         >
           {contentSummary}

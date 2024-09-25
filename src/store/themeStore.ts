@@ -1,20 +1,18 @@
 import { create } from 'zustand';
 import { createTheme, darken, lighten, Theme } from '@mui/material/styles';
+import { T_Languages } from '../languages/T_Language';
+import { french } from '../languages/french';
+import { english } from '../languages/english';
 
 interface ThemeState {
   isDarkMode: boolean;
   theme: Theme;
+  language: 'en' | 'fr';
+  textContent: T_Languages;
   toggleDarkMode: () => void;
+  toggleLanguage: () => void;
   setPrimaryColor: (color: string) => void;
   setSecondaryColor: (color: string) => void;
-}
-declare module '@mui/material/styles' {
-  interface Palette {
-    blockColor: Palette['primary'];
-  }
-  interface PaletteOptions {
-    blockColor?: PaletteOptions['primary'];
-  }
 }
 const generatePaletteColors = (mainColor: string) => {
   return {
@@ -29,9 +27,10 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
   theme: createTheme({
     palette: {
       mode: 'dark',
-      blockColor: generatePaletteColors('#121212'),
     },
   }),
+  language: 'fr',
+  textContent: french,
   toggleDarkMode: () =>
     set(() => {
       const isDarkMode = !get().isDarkMode;
@@ -40,9 +39,18 @@ export const useThemeStore = create<ThemeState>((set, get) => ({
         theme: createTheme({
           palette: {
             mode: isDarkMode ? 'dark' : 'light',
-            blockColor: generatePaletteColors('#121212'),
           },
         }),
+      };
+    }),
+  toggleLanguage: () =>
+    set(() => {
+      const currentLanguage = get().language;
+      const newLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+      const newTexts = newLanguage === 'en' ? english : french;
+      return {
+        language: newLanguage,
+        textContent: newTexts,
       };
     }),
   setPrimaryColor: (color: string) =>

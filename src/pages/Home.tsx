@@ -2,9 +2,12 @@ import { Box, Stack, Typography } from '@mui/material';
 import React from 'react';
 import AccordionLayout from '../components/AccordionLayout/AccordionLayout';
 import WhoAmI from './content/WhoAmI';
+import { useThemeStore } from '../store/themeStore';
+import Skills from './content/Skills';
 
 function HomePage() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const { textContent } = useThemeStore();
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -13,7 +16,7 @@ function HomePage() {
   return (
     <Stack maxWidth={'1500px'}>
       <Typography variant="h4" p={2}>
-        Bienvenu sur mon site portfolio
+        {textContent.main}
       </Typography>
       <AccordionLayout
         sectionName="whoAmI"
@@ -22,14 +25,14 @@ function HomePage() {
         contentSummary={
           <>
             <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
-              Qui suis-je ?
+              {textContent.whoAmI.title}
             </Typography>
             <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
-              GRANIER Victor, développeur Web passionné
+              {textContent.whoAmI.under_title}
             </Typography>
           </>
         }
-        content={<WhoAmI />}
+        content={<WhoAmI text={textContent.whoAmI.text} />}
       />
       <AccordionLayout
         sectionName="whatAmILookingFor"
@@ -61,7 +64,7 @@ function HomePage() {
             </Typography>
           </>
         }
-        content={<></>}
+        content={<Skills />}
       />
       <AccordionLayout
         sectionName="myProfessionnalJourney"
@@ -79,7 +82,7 @@ function HomePage() {
         }
         content={<></>}
       />
-      <AccordionLayout
+      {/* <AccordionLayout
         sectionName="myPassions"
         expanded={expanded}
         handleChange={handleChange}
@@ -91,7 +94,7 @@ function HomePage() {
           </>
         }
         content={<></>}
-      />
+      /> */}
     </Stack>
   );
 }

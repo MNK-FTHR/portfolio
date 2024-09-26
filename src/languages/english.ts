@@ -24,4 +24,82 @@ export const english: T_Languages = {
     
     `,
   },
+  skills: {
+    title: 'Mes compétences ?',
+    under_title: 'Bases frameworks et bien plus',
+    webSkills: {
+      title: 'Compétences Web',
+      content: [
+        {
+          title: 'Front',
+          content: [
+            {
+              name: 'JS/TS',
+              text: "Javascript est le premier langage que j'ai beaucoup aimé et je me suis concentré à devenir bon avec",
+            },
+            { name: 'React', text: '' },
+            { name: 'Vue', text: '' },
+            { name: 'Angular', text: '' },
+            { name: 'Ionic', text: '' },
+            { name: 'JQuery', text: '' },
+            { name: 'HTML/CSS', text: '' },
+            { name: 'MUI', text: '' },
+          ],
+        },
+        {
+          title: 'Back',
+          content: [
+            { name: 'Laravel', text: '' },
+            { name: 'Node', text: '' },
+            { name: 'Symphony', text: '' },
+            { name: 'Django', text: '' },
+          ],
+        },
+      ],
+    },
+    softwareSkills: {
+      title: 'Compétences Logiciels',
+      content: {
+        title: 'Langages',
+        content: [
+          { name: 'C', text: '' },
+          { name: 'C++', text: '' },
+          { name: 'Java', text: '' },
+          { name: 'C#', text: '' },
+          { name: 'Bash', text: '' },
+          { name: 'Python', text: '' },
+        ],
+      },
+    },
+    softwares: {
+      title: 'Logiciels utilisés',
+      content: {
+        title: 'Logiciels',
+        content: [
+          { name: 'VSCode', text: '' },
+          { name: 'Postman', text: '' },
+          { name: 'Git', text: '' },
+          { name: 'Suite JetBrain', text: '' },
+          { name: 'DaVinci Resolve', text: '' },
+          { name: 'Cisco Packet Tracer', text: '' },
+        ],
+      },
+    },
+    other: {
+      title: 'Divers',
+      content: {
+        title: 'Connaissances',
+        content: [
+          { name: 'UML', text: '' },
+          { name: 'Architecture Logiciel', text: '' },
+          { name: 'Architecture Base de données', text: '' },
+          { name: 'Documentation', text: '' },
+          { name: 'Styling', text: '' },
+          { name: 'Schéma Électronique', text: '' },
+          { name: 'Docker', text: '' },
+          { name: 'Anglais', text: '' },
+        ],
+      },
+    },
+  },
 };

@@ -1,7 +1,8 @@
-import { Grid, Paper, Stack, styled, Typography } from '@mui/material';
+import { Box, Grid, Paper, Stack, styled, Typography } from '@mui/material';
 import React from 'react';
+import { T_Skill } from '../../languages/T_Language';
 
-function Skills() {
+function Skills({ data }: { data: T_Skill[] }) {
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
@@ -13,93 +14,114 @@ function Skills() {
       backgroundColor: '#1A2027',
     }),
   }));
+  const bgColors = ['#77DD77', '#FF6961', '#AEC6CF', '#33778f', '#FDFD96'];
+  const selectColor = () => {
+    const selectedColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+    console.log(bgColors);
 
-  const WebGrid = styled(Grid)(({ theme }) => ({
-    backgroundColor: '#fff',
-    textAlign: 'left',
-    borderRadius: '4px',
-    color: theme.palette.text.secondary,
-    ...theme.applyStyles('dark', {
-      backgroundColor: '#14181d',
-    }),
-  }));
+    const index = bgColors.indexOf(selectedColor);
+    if (index > -1) {
+      bgColors.splice(index, 1);
+    }
+    return selectedColor;
+  };
   return (
-    <Grid container spacing={3} p={2}>
-      <WebGrid container xs={8} boxShadow={3}>
-        <Item>Compétences Web</Item>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Item>
-              <Typography variant="h5">Front</Typography>
-              <Stack
-                direction={'row'}
-                width={'100%'}
-                sx={{ backgroundColor: '#77DD77', borderRadius: '4px' }}
-              >
-                <Stack width={'100%'}>
-                  <Item>JS/TS</Item>
-                  <Item>React</Item>
-                  <Item>Vue</Item>
-                  <Item>Angular</Item>
-                </Stack>
-                <Stack width={'100%'}>
-                  <Item>Ionic</Item>
-                  <Item>JQuery</Item>
-                  <Item>HTML/CSS</Item>
-                  <Item>MUI</Item>
-                </Stack>
-              </Stack>
-            </Item>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2} p={2}>
+        {data.map((item, i) => (
+          <Grid
+            item
+            xs={i === 0 || i === 3 ? 8 : 4}
+            boxShadow={3}
+            p={1}
+            borderRadius={'4px'}
+            key={i}
+          >
+            <Item>{item.title}</Item>
+            <Grid container spacing={2}>
+              {!Array.isArray(item.content) && (
+                <Grid item xs={12}>
+                  <Item>
+                    <Typography variant="h5">{item.content.title}</Typography>
+                    <Stack
+                      direction={'row'}
+                      width={'100%'}
+                      sx={{
+                        backgroundColor: selectColor(),
+                        borderRadius: '4px',
+                      }}
+                    >
+                      <Stack width={'100%'}>
+                        {item.content.content
+                          .slice(0, item.content.content.length / 2)
+                          .map((content) => (
+                            <Item>{content.name}</Item>
+                          ))}
+                      </Stack>
+                      <Stack width={'100%'}>
+                        {item.content.content
+                          .slice(
+                            item.content.content.length / 2,
+                            item.content.content.length,
+                          )
+                          .map((content) => (
+                            <Item>{content.name}</Item>
+                          ))}
+                      </Stack>
+                    </Stack>
+                  </Item>
+                </Grid>
+              )}
+              {Array.isArray(item.content) &&
+                item.content.map((content, index) => (
+                  <Grid item xs={6}>
+                    <Item>
+                      <Typography variant="h5">{content.title}</Typography>
+                      <Stack
+                        direction={'row'}
+                        width={'100%'}
+                        sx={{
+                          backgroundColor: selectColor(),
+                          borderRadius: '4px',
+                        }}
+                      >
+                        {index === 0 && (
+                          <>
+                            <Stack width={'100%'}>
+                              {content.content
+                                .slice(0, content.content.length / 2)
+                                .map((content) => (
+                                  <Item>{content.name}</Item>
+                                ))}
+                            </Stack>
+                            <Stack width={'100%'}>
+                              {content.content
+                                .slice(
+                                  content.content.length / 2,
+                                  content.content.length,
+                                )
+                                .map((content) => (
+                                  <Item>{content.name}</Item>
+                                ))}
+                            </Stack>
+                          </>
+                        )}
+                        {index === 1 && (
+                          <Stack width={'100%'}>
+                            {content.content.map((content) => (
+                              <Item>{content.name}</Item>
+                            ))}
+                          </Stack>
+                        )}
+                      </Stack>
+                    </Item>
+                  </Grid>
+                ))}
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Item>
-              <Typography variant="h5">Back</Typography>
-              <Stack
-                width={'100%'}
-                sx={{ backgroundColor: '#FF6961', borderRadius: '4px' }}
-              >
-                <Item>Laravel</Item>
-                <Item>Node</Item>
-                <Item>Symfony</Item>
-                <Item>Django</Item>
-              </Stack>
-            </Item>
-          </Grid>
-        </Grid>
-      </WebGrid>
-      <WebGrid container xs={4} boxShadow={3}>
-        <Item>Compétences Logiciels</Item>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Item>
-              <Typography variant="h5">Langages</Typography>
-              <Stack
-                direction={'row'}
-                width={'100%'}
-                sx={{ backgroundColor: '#AEC6CF', borderRadius: '4px' }}
-              >
-                <Stack width={'100%'}>
-                  <Item>C</Item>
-                  <Item>C++</Item>
-                  <Item>Java</Item>
-                  <Item>C#</Item>
-                </Stack>
-                <Stack width={'100%'}>
-                  <Item>Bash</Item>
-                  <Item>Python</Item>
-                </Stack>
-              </Stack>
-            </Item>
-          </Grid>
-        </Grid>
-      </WebGrid>
-      <WebGrid container xs={4}>
-        <Item>Logiciels déjà utilisé</Item>
-      </WebGrid>
-      <WebGrid container xs={8}>
-        <Item>Divers</Item>
-      </WebGrid>
-    </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 }
 

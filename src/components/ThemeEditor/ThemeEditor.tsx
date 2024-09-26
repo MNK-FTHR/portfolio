@@ -68,14 +68,36 @@ const ThemeEditor = () => {
           title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           placement="left"
         >
-          <Fab color="primary" onClick={toggleDarkMode}>
+          <Fab
+            sx={{
+              margin: '0px',
+              top: '10px',
+              right: '20px',
+              bottom: '20px',
+              left: 'auto',
+              position: 'fixed',
+            }}
+            color="primary"
+            onClick={toggleDarkMode}
+          >
             <IconButton>
               {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
             </IconButton>
           </Fab>
         </Tooltip>
         <Tooltip title={'Change language'} placement="left">
-          <Fab color="primary" onClick={toggleLanguage}>
+          <Fab
+            sx={{
+              margin: '0px',
+              top: '70px',
+              right: '20px',
+              bottom: '20px',
+              left: 'auto',
+              position: 'fixed',
+            }}
+            color="primary"
+            onClick={toggleLanguage}
+          >
             <IconButton>{language}</IconButton>
           </Fab>
         </Tooltip>

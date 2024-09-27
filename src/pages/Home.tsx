@@ -14,9 +14,11 @@ function HomePage() {
   const accordion2Ref = useRef<HTMLDivElement>(null);
   const accordion3Ref = useRef<HTMLDivElement>(null);
   const handleAccordionClick = (ref: React.RefObject<HTMLDivElement>) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setTimeout(() => {
+      if (ref.current) {
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 350);
   };
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -34,7 +36,7 @@ function HomePage() {
         expanded={expanded}
         handleChange={handleChange}
         scrollOnClick={() => handleAccordionClick(accordion1Ref)}
-        ref={accordion1Ref}
+        reference={accordion1Ref}
         contentSummary={
           <>
             <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
@@ -51,7 +53,7 @@ function HomePage() {
         sectionName="whatAmILookingFor"
         expanded={expanded}
         handleChange={handleChange}
-        ref={accordion2Ref}
+        reference={accordion2Ref}
         scrollOnClick={() => handleAccordionClick(accordion2Ref)}
         contentSummary={
           <>
@@ -87,7 +89,7 @@ function HomePage() {
         sectionName="whatIKnow"
         expanded={expanded}
         handleChange={handleChange}
-        ref={accordion3Ref}
+        reference={accordion3Ref}
         scrollOnClick={() => handleAccordionClick(accordion3Ref)}
         contentSummary={
           <>

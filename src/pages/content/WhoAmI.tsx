@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, styled, Typography, useTheme } from '@mui/material';
 import Me from './Me.jpg';
 import React from 'react';
 
@@ -8,6 +8,7 @@ function WhoAmI({ text = '' }: { text: string }) {
     .split('.')
     .map((sentence) => sentence.trim())
     .filter((sentence) => sentence.length > 0);
+
   return (
     <Stack direction={'row'}>
       <Stack direction={'column'} p={2} width={'70%'}>
@@ -19,11 +20,9 @@ function WhoAmI({ text = '' }: { text: string }) {
         <Box
           component="img"
           sx={{
-            width: 614 / 3,
-            height: 936 / 3,
+            width: { sx: 614 / 5, md: 614 / 4, lg: 614 / 3 },
+            height: { sx: 936 / 5, md: 936 / 4, lg: 936 / 3 },
             opacity: theme.palette.mode === 'dark' ? 0.7 : 1,
-            // maxHeight: { xs: 233, md: 167 },
-            // maxWidth: { xs: 350, md: 250 },
           }}
           alt={'myPhoto'}
           src={Me}

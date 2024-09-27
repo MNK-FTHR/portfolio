@@ -41,7 +41,7 @@ function AccordionLayout({
   expanded,
   contentSummary,
   content,
-  ref,
+  reference,
   scrollOnClick,
 }: {
   sectionName: string;
@@ -51,13 +51,13 @@ function AccordionLayout({
   expanded: string | false;
   contentSummary: React.ReactNode;
   content: React.ReactNode;
-  ref: any;
+  reference: any;
   scrollOnClick: () => void;
 }) {
   const theme = useThemeStore((state) => state.theme);
 
   return (
-    <Stack p={2} m={2} ref={ref}>
+    <Stack p={2} m={2} ref={reference} onClick={() => scrollOnClick()}>
       <Accordion
         sx={{
           border: '1px solid white',

@@ -17,8 +17,6 @@ function Skills({ data }: { data: T_Skill[] }) {
   const bgColors = ['#77DD77', '#FF6961', '#AEC6CF', '#33778f', '#FDFD96'];
   const selectColor = () => {
     const selectedColor = bgColors[Math.floor(Math.random() * bgColors.length)];
-    console.log(bgColors);
-
     const index = bgColors.indexOf(selectedColor);
     if (index > -1) {
       bgColors.splice(index, 1);
@@ -54,8 +52,8 @@ function Skills({ data }: { data: T_Skill[] }) {
                       <Stack width={'100%'}>
                         {item.content.content
                           .slice(0, item.content.content.length / 2)
-                          .map((content) => (
-                            <Item>{content.name}</Item>
+                          .map((content, i) => (
+                            <Item key={i}>{content.name}</Item>
                           ))}
                       </Stack>
                       <Stack width={'100%'}>
@@ -64,8 +62,8 @@ function Skills({ data }: { data: T_Skill[] }) {
                             item.content.content.length / 2,
                             item.content.content.length,
                           )
-                          .map((content) => (
-                            <Item>{content.name}</Item>
+                          .map((content, i) => (
+                            <Item key={i}>{content.name}</Item>
                           ))}
                       </Stack>
                     </Stack>
@@ -74,7 +72,7 @@ function Skills({ data }: { data: T_Skill[] }) {
               )}
               {Array.isArray(item.content) &&
                 item.content.map((content, index) => (
-                  <Grid item xs={6}>
+                  <Grid item xs={6} key={index}>
                     <Item>
                       <Typography variant="h5">{content.title}</Typography>
                       <Stack
@@ -90,8 +88,8 @@ function Skills({ data }: { data: T_Skill[] }) {
                             <Stack width={'100%'}>
                               {content.content
                                 .slice(0, content.content.length / 2)
-                                .map((content) => (
-                                  <Item>{content.name}</Item>
+                                .map((content, i) => (
+                                  <Item key={i}>{content.name}</Item>
                                 ))}
                             </Stack>
                             <Stack width={'100%'}>
@@ -100,16 +98,16 @@ function Skills({ data }: { data: T_Skill[] }) {
                                   content.content.length / 2,
                                   content.content.length,
                                 )
-                                .map((content) => (
-                                  <Item>{content.name}</Item>
+                                .map((content, i) => (
+                                  <Item key={i}>{content.name}</Item>
                                 ))}
                             </Stack>
                           </>
                         )}
                         {index === 1 && (
                           <Stack width={'100%'}>
-                            {content.content.map((content) => (
-                              <Item>{content.name}</Item>
+                            {content.content.map((content, i) => (
+                              <Item key={i}>{content.name}</Item>
                             ))}
                           </Stack>
                         )}

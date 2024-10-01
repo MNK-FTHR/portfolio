@@ -1,5 +1,15 @@
-import { Box, Grid, Paper, Stack, styled, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Paper,
+  Stack,
+  styled,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import React from 'react';
+import Zoom from '@mui/material/Zoom';
+
 import { T_Skill } from '../../languages/T_Language';
 
 function Skills({ data }: { data: T_Skill[] }) {
@@ -53,7 +63,17 @@ function Skills({ data }: { data: T_Skill[] }) {
                         {item.content.content
                           .slice(0, item.content.content.length / 2)
                           .map((content, i) => (
-                            <Item key={i}>{content.name}</Item>
+                            <Tooltip
+                              placement="right"
+                              title={
+                                <Typography variant="h5">
+                                  {content.text}
+                                </Typography>
+                              }
+                              TransitionComponent={Zoom}
+                            >
+                              <Item key={i}>{content.name}</Item>
+                            </Tooltip>
                           ))}
                       </Stack>
                       <Stack width={'100%'}>
@@ -63,7 +83,17 @@ function Skills({ data }: { data: T_Skill[] }) {
                             item.content.content.length,
                           )
                           .map((content, i) => (
-                            <Item key={i}>{content.name}</Item>
+                            <Tooltip
+                              placement="right"
+                              title={
+                                <Typography variant="h5">
+                                  {content.text}
+                                </Typography>
+                              }
+                              TransitionComponent={Zoom}
+                            >
+                              <Item key={i}>{content.name}</Item>
+                            </Tooltip>
                           ))}
                       </Stack>
                     </Stack>
@@ -89,7 +119,17 @@ function Skills({ data }: { data: T_Skill[] }) {
                               {content.content
                                 .slice(0, content.content.length / 2)
                                 .map((content, i) => (
-                                  <Item key={i}>{content.name}</Item>
+                                  <Tooltip
+                                    placement="right"
+                                    title={
+                                      <Typography variant="h5">
+                                        {content.text}
+                                      </Typography>
+                                    }
+                                    TransitionComponent={Zoom}
+                                  >
+                                    <Item key={i}>{content.name}</Item>
+                                  </Tooltip>
                                 ))}
                             </Stack>
                             <Stack width={'100%'}>
@@ -99,7 +139,17 @@ function Skills({ data }: { data: T_Skill[] }) {
                                   content.content.length,
                                 )
                                 .map((content, i) => (
-                                  <Item key={i}>{content.name}</Item>
+                                  <Tooltip
+                                    placement="right"
+                                    title={
+                                      <Typography variant="h5">
+                                        {content.text}
+                                      </Typography>
+                                    }
+                                    TransitionComponent={Zoom}
+                                  >
+                                    <Item key={i}>{content.name}</Item>
+                                  </Tooltip>
                                 ))}
                             </Stack>
                           </>
@@ -107,7 +157,17 @@ function Skills({ data }: { data: T_Skill[] }) {
                         {index === 1 && (
                           <Stack width={'100%'}>
                             {content.content.map((content, i) => (
-                              <Item key={i}>{content.name}</Item>
+                              <Tooltip
+                                placement="right"
+                                title={
+                                  <Typography variant="h5">
+                                    {content.text}
+                                  </Typography>
+                                }
+                                TransitionComponent={Zoom}
+                              >
+                                <Item key={i}>{content.name}</Item>
+                              </Tooltip>
                             ))}
                           </Stack>
                         )}

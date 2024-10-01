@@ -5,6 +5,7 @@ import {
   Box,
   Stack,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -54,8 +55,6 @@ function AccordionLayout({
   reference: any;
   scrollOnClick: () => void;
 }) {
-  const theme = useThemeStore((state) => state.theme);
-
   return (
     <Stack p={2} m={2} ref={reference} onClick={() => scrollOnClick()}>
       <Accordion

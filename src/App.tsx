@@ -12,7 +12,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Layout>
-        <Router>
+        <Router basename="portfolio">
           <Routes>
             <Route path="/" element={<HomePage />} />
           </Routes>

@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, useMediaQuery } from '@mui/material';
 import React, { useRef } from 'react';
 import AccordionLayout from '../components/AccordionLayout/AccordionLayout';
 import WhoAmI from './content/WhoAmI';
@@ -24,7 +24,18 @@ function HomePage() {
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+  const theme = useThemeStore((state) => state.theme);
 
+  const greaterThanMid = useMediaQuery(theme.breakpoints.up('md'));
+  const smallToMid = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+  const lessThanSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  if (greaterThanMid) {
+    console.log('Greater than mid');
+  } else if (smallToMid) {
+    console.log('Between small to mid');
+  } else if (lessThanSmall) {
+    console.log('Less than small');
+  }
   return (
     <Stack maxWidth={'1500px'}>
       <Typography id="d1" variant="h3" p={4}>
@@ -39,12 +50,22 @@ function HomePage() {
         reference={accordion1Ref}
         contentSummary={
           <>
-            <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
+            <Typography
+              variant="h3"
+              sx={{
+                width: '50%',
+                flexShrink: 0,
+                ...(smallToMid && { width: '100%', textAlign: 'center' }),
+                ...(lessThanSmall && { width: '100%', textAlign: 'center' }),
+              }}
+            >
               {textContent.whoAmI.title}
             </Typography>
-            <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
-              {textContent.whoAmI.under_title}
-            </Typography>
+            {greaterThanMid && (
+              <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
+                {textContent.whoAmI.under_title}
+              </Typography>
+            )}
           </>
         }
         content={<WhoAmI text={textContent.whoAmI.text} />}

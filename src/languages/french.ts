@@ -2,6 +2,24 @@ import { T_Languages } from './T_Language';
 
 export const french: T_Languages = {
   main: 'Bienvenu sur mon site portfolio',
+  micelaneous: {
+    languages: {
+      fr: {
+        abrev: 'fr',
+        name: 'Français',
+      },
+      en: {
+        abrev: 'en',
+        name: 'English',
+      },
+    },
+    ui: {
+      modes: {
+        dark: 'Thème sombre',
+        light: 'Thème claire',
+      },
+    },
+  },
   whoAmI: {
     title: 'Qui suis-je ?',
     under_title: 'GRANIER Victor, développeur Web passionné',

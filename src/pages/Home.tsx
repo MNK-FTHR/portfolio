@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Box, Stack, styled, Typography, useMediaQuery } from '@mui/material';
 import React, { useRef } from 'react';
 import AccordionLayout from '../components/AccordionLayout/AccordionLayout';
 import WhoAmI from './content/WhoAmI';
@@ -6,6 +6,8 @@ import { useThemeStore } from '../store/themeStore';
 import Skills from './content/Skills';
 import Contact from '../components/Contact/Contact';
 import { T_Skill } from '../languages/T_Language';
+import { red, green, blue } from '@mui/material/colors';
+import Title from '../components/Title/Title';
 
 function HomePage() {
   const [expanded, setExpanded] = React.useState<string | false>('whoAmI');
@@ -26,21 +28,13 @@ function HomePage() {
     };
   const theme = useThemeStore((state) => state.theme);
 
-  const greaterThanMid = useMediaQuery(theme.breakpoints.up('md'));
-  const smallToMid = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const lessThanSmall = useMediaQuery(theme.breakpoints.down('sm'));
-  if (greaterThanMid) {
-    console.log('Greater than mid');
-  } else if (smallToMid) {
-    console.log('Between small to mid');
-  } else if (lessThanSmall) {
-    console.log('Less than small');
-  }
+  const desktop = useMediaQuery(theme.breakpoints.up('lg'));
+  const tablet = useMediaQuery(theme.breakpoints.up('sm'));
+  const mobile = useMediaQuery(theme.breakpoints.up('xs'));
+
   return (
     <Stack maxWidth={'1500px'}>
-      <Typography id="d1" variant="h3" p={4}>
-        {textContent.main}
-      </Typography>
+      <Title text={textContent.main} />
 
       <AccordionLayout
         sectionName="whoAmI"
@@ -55,13 +49,13 @@ function HomePage() {
               sx={{
                 width: '50%',
                 flexShrink: 0,
-                ...(smallToMid && { width: '100%', textAlign: 'center' }),
-                ...(lessThanSmall && { width: '100%', textAlign: 'center' }),
+                ...(mobile && { width: '100%', textAlign: 'center' }),
+                ...(tablet && { width: '100%', textAlign: 'center' }),
               }}
             >
               {textContent.whoAmI.title}
             </Typography>
-            {greaterThanMid && (
+            {tablet && (
               <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
                 {textContent.whoAmI.under_title}
               </Typography>
@@ -81,9 +75,11 @@ function HomePage() {
             <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
               {textContent.whatAmILookingFor.title}
             </Typography>
-            <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
-              {textContent.whatAmILookingFor.under_title}
-            </Typography>
+            {tablet && (
+              <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
+                {textContent.whatAmILookingFor.under_title}
+              </Typography>
+            )}
           </>
         }
         content={
@@ -117,9 +113,11 @@ function HomePage() {
             <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
               {textContent.skills.title}
             </Typography>
-            <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
-              {textContent.skills.under_title}
-            </Typography>
+            {tablet && (
+              <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
+                {textContent.skills.under_title}
+              </Typography>
+            )}
           </>
         }
         content={

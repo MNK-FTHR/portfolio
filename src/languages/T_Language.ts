@@ -1,5 +1,23 @@
 export type T_Languages = {
   main: string;
+  micelaneous: {
+    languages: {
+      fr: {
+        name: string;
+        abrev: string;
+      };
+      en: {
+        name: string;
+        abrev: string;
+      };
+    };
+    ui: {
+      modes: {
+        dark: string;
+        light: string;
+      };
+    };
+  };
   whoAmI: {
     title: string;
     under_title: string;

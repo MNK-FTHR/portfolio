@@ -38,71 +38,101 @@ const ThemeEditor = () => {
   const makeSetSecondaryColorThrottled = useRef(
     throttle(setSecondaryColor, 300),
   );
+  let tryingBoolean = true;
   return (
-    <Stack direction={'row'} p={2} sx={{ float: 'right' }}>
-      <Stack direction={'column'}>
-        {showPrimaryPicker && (
-          <MuiColorInput
-            format="hex"
-            value={primaryColor}
-            onChange={(color) => {
-              makeSetPrimaryColorThrottled.current(color);
-              setPrimaryColorInput(color);
-            }}
-          />
-        )}
-      </Stack>
-
-      <Stack direction={'column'} spacing={1}>
-        {/* <Tooltip
-          title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          placement="left"
-        >
-          <Fab color="primary">
-            <IconButton>
-              <SaveIcon />
-            </IconButton>
-          </Fab>
-        </Tooltip> */}
-        <Tooltip
-          title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          placement="left"
-        >
-          <Fab
-            sx={{
-              margin: '0px',
-              top: '10px',
-              right: '20px',
-              bottom: '20px',
-              left: 'auto',
-              position: 'fixed',
-            }}
-            color="primary"
-            onClick={toggleDarkMode}
-          >
-            <IconButton>
-              {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
-            </IconButton>
-          </Fab>
-        </Tooltip>
-        <Tooltip title={'Change language'} placement="left">
-          <Fab
-            sx={{
-              margin: '0px',
-              top: '70px',
-              right: '20px',
-              bottom: '20px',
-              left: 'auto',
-              position: 'fixed',
-            }}
-            color="primary"
-            onClick={toggleLanguage}
-          >
-            <IconButton>{language}</IconButton>
-          </Fab>
-        </Tooltip>
-      </Stack>
-    </Stack>
+    <>
+      {theme.breakpoints.only('sm') ? (
+        <Stack direction={'row'} p={2}>
+          <Stack direction={'row'} spacing={1}>
+            <Tooltip
+              title={
+                isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+              }
+              placement="left"
+            >
+              <Fab
+                sx={{
+                  margin: '0px',
+                  top: '10px',
+                  right: '2px',
+                  bottom: '20px',
+                  left: 'auto',
+                  position: 'fixed',
+                }}
+                color="primary"
+                onClick={toggleDarkMode}
+                variant="extended"
+              >
+                <IconButton>
+                  {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
+                </IconButton>
+              </Fab>
+            </Tooltip>
+            <Tooltip title={'Change language'} placement="left">
+              <Fab
+                sx={{
+                  margin: '0px',
+                  top: '10px',
+                  right: 'auto',
+                  bottom: '20px',
+                  left: '10px',
+                  position: 'fixed',
+                }}
+                color="primary"
+                onClick={toggleLanguage}
+                variant="extended"
+              >
+                {language === 'fr' ? 'frençais' : 'english'}
+              </Fab>
+            </Tooltip>
+          </Stack>
+        </Stack>
+      ) : (
+        <Stack direction={'row'} p={2}>
+          <Stack direction={'column'} spacing={1}>
+            <Tooltip
+              title={
+                isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+              }
+              placement="left"
+            >
+              <Fab
+                sx={{
+                  margin: '0px',
+                  top: '10px',
+                  right: '20px',
+                  bottom: '20px',
+                  left: 'auto',
+                  position: 'fixed',
+                }}
+                color="primary"
+                onClick={toggleDarkMode}
+              >
+                <IconButton>
+                  {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
+                </IconButton>
+              </Fab>
+            </Tooltip>
+            <Tooltip title={'Change language'} placement="left">
+              <Fab
+                sx={{
+                  margin: '0px',
+                  top: '70px',
+                  right: '20px',
+                  bottom: '20px',
+                  left: 'auto',
+                  position: 'fixed',
+                }}
+                color="primary"
+                onClick={toggleLanguage}
+              >
+                <IconButton>{language}</IconButton>
+              </Fab>
+            </Tooltip>
+          </Stack>
+        </Stack>
+      )}
+    </>
   );
 };
 

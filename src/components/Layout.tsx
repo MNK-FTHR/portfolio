@@ -6,8 +6,6 @@ function Layout({ children }: { children: JSX.Element }) {
   return (
     <Box
       sx={{
-        width: '100vw',
-        height: '100vh',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

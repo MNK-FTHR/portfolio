@@ -56,7 +56,7 @@ function AccordionLayout({
   scrollOnClick: () => void;
 }) {
   return (
-    <Stack p={2} m={2} ref={reference} onClick={() => scrollOnClick()}>
+    <Stack p={2} ref={reference} onClick={() => scrollOnClick()}>
       <Accordion
         sx={{
           border: '1px solid white',

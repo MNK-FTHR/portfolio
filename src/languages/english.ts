@@ -15,8 +15,8 @@ export const english: T_Languages = {
     },
     ui: {
       modes: {
-        dark: 'Dark mode',
-        light: 'Light mode',
+        dark: 'Switch to dark mode',
+        light: 'Switch to light mode',
       },
     },
   },

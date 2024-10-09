@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import AccordionLayout from '../components/AccordionLayout/AccordionLayout';
 import WhoAmI from './content/WhoAmI';
 import { useThemeStore } from '../store/themeStore';
-import Skills from './content/Skills';
+import Skills from './content/skills/Skills';
 import Contact from '../components/Contact/Contact';
 import { T_Skill } from '../languages/T_Language';
 import { red, green, blue } from '@mui/material/colors';
@@ -26,11 +26,8 @@ function HomePage() {
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-  const theme = useThemeStore((state) => state.theme);
 
-  const desktop = useMediaQuery(theme.breakpoints.up('lg'));
-  const tablet = useMediaQuery(theme.breakpoints.up('sm'));
-  const mobile = useMediaQuery(theme.breakpoints.up('xs'));
+  const isMobile = useMediaQuery('(max-width:769px)');
 
   return (
     <Stack maxWidth={'1500px'}>
@@ -45,17 +42,12 @@ function HomePage() {
         contentSummary={
           <>
             <Typography
-              variant="h3"
-              sx={{
-                width: '50%',
-                flexShrink: 0,
-                ...(mobile && { width: '100%', textAlign: 'center' }),
-                ...(tablet && { width: '100%', textAlign: 'center' }),
-              }}
+              variant={isMobile ? 'h5' : 'h3'}
+              sx={{ ...(!isMobile && { width: '50%' }), flexShrink: 0 }}
             >
               {textContent.whoAmI.title}
             </Typography>
-            {tablet && (
+            {!isMobile && (
               <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
                 {textContent.whoAmI.under_title}
               </Typography>
@@ -72,10 +64,13 @@ function HomePage() {
         scrollOnClick={() => handleAccordionClick(accordion2Ref)}
         contentSummary={
           <>
-            <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
+            <Typography
+              variant={isMobile ? 'h5' : 'h3'}
+              sx={{ ...(!isMobile && { width: '50%' }), flexShrink: 0 }}
+            >
               {textContent.whatAmILookingFor.title}
             </Typography>
-            {tablet && (
+            {!isMobile && (
               <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
                 {textContent.whatAmILookingFor.under_title}
               </Typography>
@@ -110,10 +105,14 @@ function HomePage() {
         scrollOnClick={() => handleAccordionClick(accordion3Ref)}
         contentSummary={
           <>
-            <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
+            <Typography
+              variant={isMobile ? 'h5' : 'h3'}
+              sx={{ ...(!isMobile && { width: '50%' }), flexShrink: 0 }}
+            >
+              {' '}
               {textContent.skills.title}
             </Typography>
-            {tablet && (
+            {!isMobile && (
               <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
                 {textContent.skills.under_title}
               </Typography>
@@ -134,35 +133,6 @@ function HomePage() {
           </>
         }
       />
-      {/* <AccordionLayout
-        sectionName="myProfessionnalJourney"
-        expanded={expanded}
-        handleChange={handleChange}
-        contentSummary={
-          <>
-            <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
-              Mon parcours
-            </Typography>
-            <Typography p={2} variant="h5" sx={{ color: 'text.secondary' }}>
-              Scolaire et professionnel
-            </Typography>
-          </>
-        }
-        content={<></>}
-      /> */}
-      {/* <AccordionLayout
-        sectionName="myPassions"
-        expanded={expanded}
-        handleChange={handleChange}
-        contentSummary={
-          <>
-            <Typography variant="h3" sx={{ width: '50%', flexShrink: 0 }}>
-              Mes Passions
-            </Typography>
-          </>
-        }
-        content={<></>}
-      /> */}
     </Stack>
   );
 }

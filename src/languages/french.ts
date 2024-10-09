@@ -15,8 +15,8 @@ export const french: T_Languages = {
     },
     ui: {
       modes: {
-        dark: 'Thème sombre',
-        light: 'Thème claire',
+        dark: 'Passer au thème sombre',
+        light: 'Passer au thème claire',
       },
     },
   },

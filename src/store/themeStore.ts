@@ -3,6 +3,7 @@ import { createTheme, darken, lighten, Theme } from '@mui/material/styles';
 import { T_Languages } from '../languages/T_Language';
 import { french } from '../languages/french';
 import { english } from '../languages/english';
+import { useMediaQuery } from '@mui/material';
 
 interface ThemeState {
   isDarkMode: boolean;

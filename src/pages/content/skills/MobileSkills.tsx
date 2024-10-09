@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import Zoom from '@mui/material/Zoom';
 
-import { T_Skill } from '../../languages/T_Language';
+import { T_Skill } from '../../../languages/T_Language';
 
 function Skills({ data }: { data: T_Skill[] }) {
   const Item = styled(Paper)(({ theme }) => ({
@@ -50,7 +50,7 @@ function Skills({ data }: { data: T_Skill[] }) {
               {!Array.isArray(item.content) && (
                 <Grid item xs={12}>
                   <Item>
-                    <Typography variant="h5">{item.content.title}</Typography>
+                    <Typography variant="h6">{item.content.title}</Typography>
                     <Stack
                       direction={'row'}
                       width={'100%'}
@@ -61,7 +61,7 @@ function Skills({ data }: { data: T_Skill[] }) {
                     >
                       <Stack width={'100%'}>
                         {item.content.content
-                          .slice(0, item.content.content.length / 2)
+                          .slice(0, item.content.content.length)
                           .map((content, i) => (
                             <Tooltip
                               placement="right"
@@ -71,28 +71,9 @@ function Skills({ data }: { data: T_Skill[] }) {
                                 </Typography>
                               }
                               TransitionComponent={Zoom}
+                              key={i}
                             >
-                              <Item key={i}>{content.name}</Item>
-                            </Tooltip>
-                          ))}
-                      </Stack>
-                      <Stack width={'100%'}>
-                        {item.content.content
-                          .slice(
-                            item.content.content.length / 2,
-                            item.content.content.length,
-                          )
-                          .map((content, i) => (
-                            <Tooltip
-                              placement="right"
-                              title={
-                                <Typography variant="h5">
-                                  {content.text}
-                                </Typography>
-                              }
-                              TransitionComponent={Zoom}
-                            >
-                              <Item key={i}>{content.name}</Item>
+                              <Item>{content.name}</Item>
                             </Tooltip>
                           ))}
                       </Stack>
@@ -117,7 +98,7 @@ function Skills({ data }: { data: T_Skill[] }) {
                           <>
                             <Stack width={'100%'}>
                               {content.content
-                                .slice(0, content.content.length / 2)
+                                .slice(0, content.content.length)
                                 .map((content, i) => (
                                   <Tooltip
                                     placement="right"
@@ -127,28 +108,9 @@ function Skills({ data }: { data: T_Skill[] }) {
                                       </Typography>
                                     }
                                     TransitionComponent={Zoom}
+                                    key={i}
                                   >
-                                    <Item key={i}>{content.name}</Item>
-                                  </Tooltip>
-                                ))}
-                            </Stack>
-                            <Stack width={'100%'}>
-                              {content.content
-                                .slice(
-                                  content.content.length / 2,
-                                  content.content.length,
-                                )
-                                .map((content, i) => (
-                                  <Tooltip
-                                    placement="right"
-                                    title={
-                                      <Typography variant="h5">
-                                        {content.text}
-                                      </Typography>
-                                    }
-                                    TransitionComponent={Zoom}
-                                  >
-                                    <Item key={i}>{content.name}</Item>
+                                    <Item>{content.name}</Item>
                                   </Tooltip>
                                 ))}
                             </Stack>
@@ -165,8 +127,9 @@ function Skills({ data }: { data: T_Skill[] }) {
                                   </Typography>
                                 }
                                 TransitionComponent={Zoom}
+                                key={i}
                               >
-                                <Item key={i}>{content.name}</Item>
+                                <Item>{content.name}</Item>
                               </Tooltip>
                             ))}
                           </Stack>

@@ -3,56 +3,39 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {
-  Button,
   Fab,
   IconButton,
-  PaletteColor,
   Stack,
-  TextField,
   Tooltip,
+  Typography,
+  useMediaQuery,
 } from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
-import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
-import { MuiColorInput } from 'mui-color-input';
+
 import { useThemeStore } from '../../store/themeStore';
-import { debounce, throttle } from 'lodash';
 
 const ThemeEditor = () => {
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
-  const { language, toggleLanguage } = useThemeStore();
+  const isMobile = useMediaQuery('(max-width:769px)');
 
-  const theme = useThemeStore((state) => state.theme);
-  const setPrimaryColor = useThemeStore((state) => state.setPrimaryColor);
-  const setSecondaryColor = useThemeStore((state) => state.setSecondaryColor);
-  const [showPrimaryPicker, setShowPrimaryPicker] = useState(false);
-  const [showSecondaryPicker, setShowSecondaryPicker] = useState(false);
-  const [primaryColor, setPrimaryColorInput] = useState(
-    theme.palette.primary.main,
-  );
-  const [secondaryColor, setSecondaryColorInput] = useState(
-    theme.palette.secondary.main,
-  );
-  const makeSetPrimaryColorThrottled = useRef(throttle(setPrimaryColor, 300));
-  const makeSetSecondaryColorThrottled = useRef(
-    throttle(setSecondaryColor, 300),
-  );
-  let tryingBoolean = true;
+  const { language, toggleLanguage } = useThemeStore();
+  const { textContent } = useThemeStore();
+
   return (
     <>
-      {theme.breakpoints.only('sm') ? (
+      {isMobile ? (
         <Stack direction={'row'} p={2}>
-          <Stack direction={'row'} spacing={1}>
+          <Stack direction={'row'}>
             <Tooltip
               title={
-                isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+                isDarkMode
+                  ? textContent.micelaneous.ui.modes.light
+                  : textContent.micelaneous.ui.modes.dark
               }
               placement="left"
             >
               <Fab
                 sx={{
-                  margin: '0px',
                   top: '10px',
                   right: '2px',
                   bottom: '20px',
@@ -63,26 +46,32 @@ const ThemeEditor = () => {
                 onClick={toggleDarkMode}
                 variant="extended"
               >
-                <IconButton>
-                  {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
-                </IconButton>
+                {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
               </Fab>
             </Tooltip>
-            <Tooltip title={'Change language'} placement="left">
+            <Tooltip
+              title={
+                language === 'fr'
+                  ? textContent.micelaneous.languages.fr.name
+                  : textContent.micelaneous.languages.en.name
+              }
+              placement="left"
+            >
               <Fab
+                variant="extended"
                 sx={{
-                  margin: '0px',
                   top: '10px',
                   right: 'auto',
                   bottom: '20px',
-                  left: '10px',
+                  left: '0px',
                   position: 'fixed',
                 }}
                 color="primary"
                 onClick={toggleLanguage}
-                variant="extended"
               >
-                {language === 'fr' ? 'frençais' : 'english'}
+                {language === 'fr'
+                  ? textContent.micelaneous.languages.fr.abrev
+                  : textContent.micelaneous.languages.en.abrev}
               </Fab>
             </Tooltip>
           </Stack>
@@ -92,7 +81,9 @@ const ThemeEditor = () => {
           <Stack direction={'column'} spacing={1}>
             <Tooltip
               title={
-                isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+                isDarkMode
+                  ? textContent.micelaneous.ui.modes.light
+                  : textContent.micelaneous.ui.modes.dark
               }
               placement="left"
             >
@@ -108,12 +99,17 @@ const ThemeEditor = () => {
                 color="primary"
                 onClick={toggleDarkMode}
               >
-                <IconButton>
-                  {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
-                </IconButton>
+                {isDarkMode ? <Brightness7Icon /> : <DarkModeIcon />}
               </Fab>
             </Tooltip>
-            <Tooltip title={'Change language'} placement="left">
+            <Tooltip
+              title={
+                language === 'fr'
+                  ? textContent.micelaneous.languages.fr.name
+                  : textContent.micelaneous.languages.en.name
+              }
+              placement="left"
+            >
               <Fab
                 sx={{
                   margin: '0px',
@@ -126,7 +122,7 @@ const ThemeEditor = () => {
                 color="primary"
                 onClick={toggleLanguage}
               >
-                <IconButton>{language}</IconButton>
+                <Typography> {language}</Typography>
               </Fab>
             </Tooltip>
           </Stack>
